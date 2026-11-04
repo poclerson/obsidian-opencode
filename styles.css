@@ -1,0 +1,966 @@
+/* OpenCode sidebar chat */
+
+.opencode-view {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  padding: 0;
+  background: var(--background-primary);
+  color: var(--text-normal);
+  overflow: hidden;
+}
+
+.opencode-view.is-hidden {
+  display: none !important;
+}
+
+.opencode-header {
+  flex: 0 0 auto;
+  padding: 10px 12px 8px;
+  border-bottom: 1px solid var(--divider-color);
+  background: var(--background-secondary);
+}
+
+.opencode-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.opencode-brand {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  min-width: 0;
+}
+
+.opencode-logo {
+  display: inline-flex;
+  color: var(--interactive-accent);
+}
+
+.opencode-logo svg {
+  width: 18px;
+  height: 18px;
+}
+
+.opencode-brand-text {
+  font-weight: 600;
+  font-size: 0.98em;
+  letter-spacing: 0.01em;
+}
+
+.opencode-status {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--text-faint);
+  flex: 0 0 auto;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--text-faint) 18%, transparent);
+}
+
+.opencode-status.is-connected {
+  background: var(--color-green);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-green) 20%, transparent);
+}
+
+.opencode-status.is-connecting {
+  background: var(--color-yellow);
+  animation: opencode-pulse 1.2s ease-in-out infinite;
+}
+
+.opencode-status.is-error {
+  background: var(--color-red);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-red) 20%, transparent);
+}
+
+@keyframes opencode-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+
+.opencode-actions {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  flex: 0 0 auto;
+}
+
+.opencode-icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  border-radius: 6px;
+  box-shadow: none;
+  cursor: pointer;
+}
+
+.opencode-icon-button:hover {
+  background: var(--background-modifier-hover);
+  color: var(--text-normal);
+}
+
+.opencode-icon-button svg {
+  width: 16px;
+  height: 16px;
+}
+
+.opencode-session-row {
+  margin-top: 8px;
+}
+
+.opencode-select {
+  width: 100%;
+  min-width: 0;
+  font-size: 0.9em;
+  text-overflow: ellipsis;
+}
+
+.opencode-session-select {
+  width: 100%;
+}
+
+.opencode-banner {
+  flex: 0 0 auto;
+  margin: 10px 12px 0;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--divider-color);
+  background: var(--background-secondary);
+  font-size: 0.88em;
+  line-height: 1.4;
+}
+
+.opencode-banner.mod-error {
+  border-color: color-mix(in srgb, var(--color-red) 45%, var(--divider-color));
+  background: color-mix(in srgb, var(--color-red) 10%, var(--background-secondary));
+}
+
+.opencode-banner.mod-info {
+  border-color: color-mix(in srgb, var(--interactive-accent) 35%, var(--divider-color));
+  background: color-mix(in srgb, var(--interactive-accent) 8%, var(--background-secondary));
+}
+
+.opencode-banner-text {
+  white-space: pre-wrap;
+}
+
+.opencode-banner-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.opencode-messages {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  scroll-behavior: smooth;
+}
+
+.opencode-empty {
+  margin: auto;
+  max-width: 420px;
+  padding: 20px 8px;
+  text-align: center;
+  color: var(--text-muted);
+}
+
+.opencode-empty-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  margin-bottom: 8px;
+  border-radius: 50%;
+  background: var(--background-secondary);
+  color: var(--interactive-accent);
+}
+
+.opencode-empty-icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+.opencode-empty h3 {
+  margin: 4px 0 6px;
+  font-size: 1em;
+  color: var(--text-normal);
+}
+
+.opencode-empty p {
+  margin: 6px 0;
+  font-size: 0.88em;
+  line-height: 1.45;
+}
+
+.opencode-empty-actions {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.opencode-empty-tips {
+  margin: 12px auto 0;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: var(--background-secondary);
+  text-align: left;
+  font-size: 0.84em;
+  line-height: 1.6;
+}
+
+.opencode-empty-server {
+  margin-top: 14px !important;
+  font-size: 0.78em !important;
+  opacity: 0.7;
+}
+
+.opencode-msg {
+  min-width: 0;
+  font-size: 0.92em;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.opencode-msg-user {
+  align-self: flex-end;
+  max-width: min(92%, 560px);
+  padding: 8px 11px;
+  border-radius: 12px 12px 3px 12px;
+  background: var(--background-secondary);
+  border: 1px solid var(--divider-color);
+}
+
+.opencode-msg-assistant {
+  align-self: stretch;
+  max-width: 100%;
+  padding: 2px 1px;
+}
+
+.opencode-msg-head {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 3px;
+  font-size: 0.78em;
+  color: var(--text-muted);
+}
+
+.opencode-role {
+  font-weight: 600;
+  color: var(--text-normal);
+  letter-spacing: 0.02em;
+}
+
+.opencode-time {
+  margin-left: auto;
+  opacity: 0.65;
+  font-variant-numeric: tabular-nums;
+}
+
+.opencode-model-tag {
+  padding: 1px 6px;
+  border-radius: 999px;
+  background: var(--background-secondary);
+  color: var(--text-muted);
+  font-size: 0.92em;
+}
+
+.opencode-msg-body > .opencode-markdown:not(:first-child) {
+  margin-top: 8px;
+}
+
+.opencode-markdown > :first-child {
+  margin-top: 0;
+}
+
+.opencode-markdown > :last-child {
+  margin-bottom: 0;
+}
+
+.opencode-markdown p,
+.opencode-markdown ul,
+.opencode-markdown ol,
+.opencode-markdown blockquote,
+.opencode-markdown pre,
+.opencode-markdown table {
+  margin-top: 0.45em;
+  margin-bottom: 0.45em;
+}
+
+.opencode-markdown ul,
+.opencode-markdown ol {
+  padding-inline-start: 1.4em;
+}
+
+.opencode-markdown pre {
+  overflow-x: auto;
+  padding: 8px 10px;
+  border-radius: 6px;
+  background: var(--background-primary-alt);
+  border: 1px solid var(--divider-color);
+  font-size: 0.86em;
+}
+
+.opencode-markdown code {
+  font-size: 0.9em;
+}
+
+.opencode-markdown table {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.opencode-msg-files,
+.opencode-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.opencode-msg-files {
+  margin-top: 7px;
+}
+
+.opencode-file-chip,
+.opencode-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  max-width: 100%;
+  padding: 3px 7px;
+  border-radius: 6px;
+  border: 1px solid var(--divider-color);
+  background: var(--background-primary-alt);
+  font-size: 0.8em;
+  color: var(--text-muted);
+}
+
+.opencode-file-chip span:last-child,
+.opencode-chip-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.opencode-file-chip svg,
+.opencode-chip svg {
+  width: 13px;
+  height: 13px;
+  flex: 0 0 auto;
+}
+
+.opencode-chip-icon {
+  display: inline-flex;
+  color: var(--interactive-accent);
+}
+
+.opencode-chip-remove {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  padding: 0;
+  margin-left: 1px;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--text-muted);
+  box-shadow: none;
+  cursor: pointer;
+}
+
+.opencode-chip-remove:hover {
+  background: var(--background-modifier-hover);
+  color: var(--text-normal);
+}
+
+.opencode-chip-remove svg {
+  width: 12px;
+  height: 12px;
+}
+
+.opencode-msg-footer {
+  margin-top: 5px;
+  font-size: 0.72em;
+  color: var(--text-faint);
+  font-variant-numeric: tabular-nums;
+}
+
+.opencode-system {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  justify-content: center;
+  text-align: center;
+  padding: 2px 12px;
+  font-size: 0.78em;
+  color: var(--text-faint);
+}
+
+.opencode-system.mod-error {
+  color: var(--color-red);
+}
+
+.opencode-system-icon {
+  display: inline-flex;
+  margin-top: 1px;
+}
+
+.opencode-system-icon svg {
+  width: 13px;
+  height: 13px;
+}
+
+.opencode-shell {
+  padding: 7px 9px;
+  border: 1px solid var(--divider-color);
+  border-radius: 7px;
+  background: var(--background-secondary);
+  font-size: 0.82em;
+}
+
+.opencode-shell-head {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text-muted);
+}
+
+.opencode-shell-head svg {
+  width: 13px;
+  height: 13px;
+}
+
+.opencode-tool {
+  margin: 7px 0;
+  border: 1px solid var(--divider-color);
+  border-radius: 8px;
+  background: var(--background-secondary);
+  overflow: hidden;
+}
+
+.opencode-tool.is-error {
+  border-color: color-mix(in srgb, var(--color-red) 50%, var(--divider-color));
+}
+
+.opencode-tool-head {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 9px;
+  font-size: 0.82em;
+  min-width: 0;
+}
+
+.opencode-tool-icon {
+  display: inline-flex;
+  flex: 0 0 auto;
+  color: var(--text-muted);
+}
+
+.opencode-tool-icon svg {
+  width: 13px;
+  height: 13px;
+}
+
+.opencode-tool.is-running .opencode-tool-icon svg,
+.opencode-tool.is-streaming .opencode-tool-icon svg {
+  animation: opencode-spin 1s linear infinite;
+}
+
+@keyframes opencode-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.opencode-tool.is-completed .opencode-tool-icon {
+  color: var(--color-green);
+}
+
+.opencode-tool.is-error .opencode-tool-icon {
+  color: var(--color-red);
+}
+
+.opencode-tool-name {
+  font-weight: 600;
+  color: var(--text-normal);
+  flex: 0 0 auto;
+}
+
+.opencode-tool-summary {
+  color: var(--text-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+}
+
+.opencode-tool-status {
+  margin-left: auto;
+  color: var(--text-faint);
+  font-size: 0.9em;
+  flex: 0 0 auto;
+  text-transform: lowercase;
+}
+
+.opencode-tool-details > summary {
+  cursor: pointer;
+  padding: 3px 9px 6px;
+  font-size: 0.74em;
+  color: var(--text-faint);
+  user-select: none;
+}
+
+.opencode-tool-pre {
+  margin: 0;
+  padding: 7px 9px;
+  border-top: 1px solid var(--divider-color);
+  background: var(--background-primary-alt);
+  font-size: 0.78em;
+  line-height: 1.45;
+  max-height: 280px;
+  overflow: auto;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.opencode-reasoning {
+  margin: 7px 0;
+  padding: 5px 8px;
+  border-left: 2px solid var(--divider-color);
+  border-radius: 0 6px 6px 0;
+  background: color-mix(in srgb, var(--background-secondary) 60%, transparent);
+  font-size: 0.84em;
+  color: var(--text-muted);
+}
+
+.opencode-reasoning > summary {
+  cursor: pointer;
+  color: var(--text-faint);
+  font-size: 0.9em;
+  user-select: none;
+}
+
+.opencode-reasoning-body {
+  margin-top: 5px;
+}
+
+.opencode-compaction {
+  text-align: left;
+  width: 100%;
+  padding: 5px 8px;
+  border-radius: 6px;
+  background: var(--background-secondary);
+}
+
+.opencode-compaction > summary {
+  cursor: pointer;
+}
+
+.opencode-retry {
+  margin-top: 6px;
+  padding: 5px 8px;
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--color-yellow) 12%, var(--background-secondary));
+  color: var(--text-muted);
+  font-size: 0.8em;
+}
+
+.opencode-error {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  margin-top: 6px;
+  padding: 6px 8px;
+  border-radius: 6px;
+  border: 1px solid color-mix(in srgb, var(--color-red) 40%, var(--divider-color));
+  background: color-mix(in srgb, var(--color-red) 10%, var(--background-secondary));
+  color: var(--text-normal);
+  font-size: 0.82em;
+  white-space: pre-wrap;
+}
+
+.opencode-error svg {
+  width: 14px;
+  height: 14px;
+  flex: 0 0 auto;
+  color: var(--color-red);
+}
+
+.opencode-typing {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 2px 2px 0;
+  padding: 6px 2px;
+  font-size: 0.8em;
+  color: var(--text-muted);
+}
+
+.opencode-typing-dots {
+  display: inline-flex;
+  gap: 3px;
+}
+
+.opencode-typing-dots span {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--interactive-accent);
+  animation: opencode-bounce 1.2s ease-in-out infinite;
+}
+
+.opencode-typing-dots span:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.opencode-typing-dots span:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+@keyframes opencode-bounce {
+  0%,
+  60%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.45;
+  }
+  30% {
+    transform: translateY(-3px);
+    opacity: 1;
+  }
+}
+
+.opencode-permissions {
+  flex: 0 0 auto;
+  padding: 0 12px;
+}
+
+.opencode-permission {
+  margin-top: 8px;
+  padding: 9px 10px;
+  border: 1px solid color-mix(in srgb, var(--color-yellow) 45%, var(--divider-color));
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--color-yellow) 9%, var(--background-secondary));
+  font-size: 0.84em;
+}
+
+.opencode-permission-head {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+}
+
+.opencode-permission-icon {
+  display: inline-flex;
+  color: var(--color-yellow);
+}
+
+.opencode-permission-icon svg {
+  width: 15px;
+  height: 15px;
+}
+
+.opencode-permission-message {
+  margin: 6px 0;
+  color: var(--text-muted);
+}
+
+.opencode-permission-resources {
+  margin: 5px 0 7px;
+  padding-inline-start: 1.3em;
+  color: var(--text-muted);
+  font-size: 0.94em;
+}
+
+.opencode-permission-resources li {
+  margin: 2px 0;
+  overflow-wrap: anywhere;
+}
+
+.opencode-permission-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.opencode-composer {
+  flex: 0 0 auto;
+  padding: 8px 10px calc(8px + env(safe-area-inset-bottom, 0px));
+  border-top: 1px solid var(--divider-color);
+  background: var(--background-primary);
+}
+
+.opencode-chips {
+  margin-bottom: 6px;
+}
+
+.opencode-input-wrap {
+  position: relative;
+}
+
+.opencode-input {
+  display: block;
+  width: 100%;
+  min-height: 38px;
+  max-height: 220px;
+  padding: 8px 10px;
+  border: 1px solid var(--divider-color);
+  border-radius: 9px;
+  background: var(--background-secondary);
+  color: var(--text-normal);
+  font-family: inherit;
+  font-size: 16px;
+  line-height: 1.4;
+  resize: none;
+  overflow-y: auto;
+  box-shadow: none;
+}
+
+.opencode-input:focus {
+  border-color: var(--interactive-accent);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--interactive-accent) 18%, transparent);
+  outline: none;
+}
+
+.opencode-input::placeholder {
+  color: var(--text-faint);
+}
+
+.opencode-popup {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: calc(100% + 6px);
+  z-index: 20;
+  max-height: min(45vh, 340px);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 4px;
+  border: 1px solid var(--divider-color);
+  border-radius: 10px;
+  background: var(--background-primary);
+  box-shadow: var(--shadow-s);
+}
+
+.opencode-popup-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 3px 7px 5px;
+  color: var(--text-faint);
+  font-size: 0.72em;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.opencode-popup-hint {
+  text-transform: none;
+  letter-spacing: 0;
+  opacity: 0.7;
+}
+
+.opencode-popup-item {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 6px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  min-width: 0;
+}
+
+.opencode-popup-item.is-active,
+.opencode-popup-item:hover {
+  background: var(--background-modifier-hover);
+}
+
+.opencode-popup-icon {
+  display: inline-flex;
+  color: var(--text-muted);
+}
+
+.opencode-popup-icon svg {
+  width: 13px;
+  height: 13px;
+}
+
+.opencode-popup-primary {
+  font-size: 0.86em;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 0 1 auto;
+}
+
+.opencode-popup-secondary {
+  font-size: 0.76em;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1 1 auto;
+  text-align: right;
+}
+
+.opencode-popup-empty {
+  padding: 10px 8px;
+  color: var(--text-faint);
+  font-size: 0.8em;
+  text-align: center;
+}
+
+.opencode-controls {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  margin-top: 7px;
+}
+
+.opencode-pickers {
+  display: flex;
+  gap: 6px;
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.opencode-picker {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  flex: 1 1 0;
+}
+
+.opencode-picker-label {
+  padding-left: 1px;
+  color: var(--text-faint);
+  font-size: 0.66em;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.opencode-picker .opencode-select {
+  font-size: 0.82em;
+  height: 30px;
+  padding-inline: 6px;
+}
+
+.opencode-send {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  height: 30px;
+  padding: 0 12px;
+  flex: 0 0 auto;
+  font-size: 0.82em;
+  border-radius: 7px;
+  cursor: pointer;
+}
+
+.opencode-send svg {
+  width: 14px;
+  height: 14px;
+}
+
+.opencode-send:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+
+.opencode-settings .opencode-settings-about {
+  color: var(--text-muted);
+  font-size: 0.86em;
+  line-height: 1.5;
+}
+
+.opencode-pair-modal .opencode-pair-or {
+  margin: 10px 0 4px;
+  color: var(--text-faint);
+  font-size: 0.84em;
+  text-align: center;
+}
+
+.opencode-pair-status {
+  min-height: 1.4em;
+  margin: 8px 0;
+  font-size: 0.86em;
+  color: var(--text-muted);
+}
+
+.opencode-pair-status.mod-error {
+  color: var(--color-red);
+}
+
+.opencode-pair-status.mod-success {
+  color: var(--color-green);
+}
+
+@media (max-width: 600px) {
+  .opencode-header {
+    padding: 8px 8px 7px;
+  }
+
+  .opencode-messages {
+    padding: 8px;
+    gap: 10px;
+  }
+
+  .opencode-banner,
+  .opencode-permissions {
+    margin-inline: 8px;
+    padding-inline: 2px;
+  }
+
+  .opencode-composer {
+    padding: 7px 8px calc(7px + env(safe-area-inset-bottom, 0px));
+  }
+
+  .opencode-msg-user {
+    max-width: 96%;
+  }
+
+  .opencode-picker-label {
+    font-size: 0.62em;
+  }
+
+  .opencode-send {
+    padding-inline: 10px;
+  }
+
+  .opencode-empty {
+    padding: 12px 4px;
+  }
+}
