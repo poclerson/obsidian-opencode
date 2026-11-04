@@ -1401,13 +1401,21 @@ export class ChatView extends ItemView {
   private async searchMentions(context: MentionContext, request: number): Promise<void> {
     if (!this.client) return;
     try {
-      const response = await this.client.findFiles(context.query, 24);
+      const query = context.query.trim().toLowerCase();
+      const files = this.plugin.app.vault.getFiles();
+      const matches = files
+        .filter((file) => {
+          if (!query) return true;
+          return file.path.toLowerCase().includes(query) || file.name.toLowerCase().includes(query);
+        })
+        .sort((a, b) => a.path.localeCompare(b.path))
+        .slice(0, 24)
+        .map((file) => ({ path: file.path, type: "file" as const }));
       if (request !== this.mentionRequest || !this.mentionMenu) return;
-      if (response.location?.directory) this.resolvedDirectory = response.location.directory;
       this.mentionLoading = false;
       this.mentionMenu = {
         context,
-        items: (response.data ?? []).filter((entry) => entry.type === "file"),
+        items: matches,
         index: 0,
       };
       this.renderPopup();
@@ -1572,6 +1580,10 @@ export class ChatView extends ItemView {
         void this.send();
       }
     }
+  }
+
+  focusComposer(): void {
+    this.textarea?.focus();
   }
 
   private autoResize(): void {
