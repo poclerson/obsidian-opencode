@@ -28,6 +28,13 @@ export default class OpenCodePlugin extends Plugin {
     });
 
     this.addCommand({
+      id: "focus-chat",
+      name: "Focus chat",
+      hotkeys: [{ modifiers: ["Mod", "Shift"], key: "o" }],
+      callback: () => void this.focusView(),
+    });
+
+    this.addCommand({
       id: "new-session",
       name: "New session",
       callback: async () => {
@@ -72,6 +79,12 @@ export default class OpenCodePlugin extends Plugin {
     }
     await this.app.workspace.revealLeaf(leaf);
     return leaf.view instanceof ChatView ? leaf.view : null;
+  }
+
+  async focusView(): Promise<ChatView | null> {
+    const view = await this.activateView();
+    view?.focusComposer();
+    return view;
   }
 
   registerViewInstance(view: ChatView): void {

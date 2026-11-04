@@ -28,7 +28,7 @@ npm install
 npm run build
 ```
 
-Copy these files into `<your-vault>/.obsidian/plugins/opencode-chat/`:
+Copy these files into `<your-vault>/.obsidian/plugins/opencode-sidebar/`:
 
 - `main.js`
 - `manifest.json`
@@ -47,7 +47,7 @@ npm run build    # typecheck + production bundle
 For live development, symlink the repository into your vault's plugin folder:
 
 ```bash
-ln -s "$PWD" "<your-vault>/.obsidian/plugins/opencode-chat"
+ln -s "$PWD" "<your-vault>/.obsidian/plugins/opencode-sidebar"
 ```
 
 ## Connect to a server

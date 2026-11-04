@@ -1,7 +1,7 @@
 {
-  "id": "opencode-chat",
+  "id": "opencode-sidebar",
   "name": "OpenCode",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "minAppVersion": "1.7.2",
   "description": "Chat with a remote OpenCode server from the sidebar, with model and reasoning effort pickers, slash commands, and file mentions.",
   "author": "Pierre-Olivier",
