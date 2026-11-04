@@ -2,7 +2,7 @@
 
 ## Project
 
-`obsidian-opencode` is an Obsidian community plugin (`id: opencode-chat`) that provides a sidebar chat client for a **remote OpenCode V2 server**. It must work on macOS, iPhone, and iPad. The plugin never runs the OpenCode server locally.
+`obsidian-opencode` is an Obsidian community plugin (`id: opencode-sidebar`) that provides a sidebar chat client for a **remote OpenCode V2 server**. It must work on macOS, iPhone, and iPad. The plugin never runs the OpenCode server locally.
 
 ## Commands
 
